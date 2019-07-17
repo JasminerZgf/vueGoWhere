@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>条件渲染</title>
+
+</head>
+
+<body>
+
+    <div id="vm1">
+        <div v-if="show === 'a'">a</div>
+        <div v-else-if="show === 'b'">b</div>
+        <div v-else>others</div>
+        <div v-show="showFlag">haha</div>
+    </div>
+
+    <div id="vm2">
+        <div v-if="show" key="username">
+            用户名:<input>
+        </div>
+        <div v-else key="password">
+            密码:<input>
+        </div>
+
+    </div>
+
+
+</body>
+<script src="../../lib/vue.js"></script>
+<script>
+    //1-v-if和v-show
+    var vm1 = new Vue({
+        el: '#vm1',
+        data: {
+            message: 'hellow',
+            show: 'b',
+            showFlag: true
+        }
+
+    })
+
+    //2-v-if中key值的使用
+    //在Vue中，虚拟dom会尽量复用组件，所以如果不加key值，则input组件会重复使用而不会重新渲染，即input用户名的值保存到密码中，
+    //只有指定key值，才是唯一
+    var vm2 = new Vue({
+        el: '#vm2',
+        data: {
+            show: true
+        }
+        
+
+    })
+</script>
+
+</html>

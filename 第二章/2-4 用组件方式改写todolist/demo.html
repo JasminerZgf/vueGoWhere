@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件化todo list</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="inputVal">
+        <button v-on:click="handleBtn">提交</button>
+        <todo-item v-for="item in list" v-bind:content="item">
+
+        </todo-item>
+    </div>
+
+
+</body>
+<script src="../../lib/vue.js"></script>
+<script>
+
+    //全局注册组件
+    // Vue.component('TodoItem',{
+    //     props: ['content'],
+    //     template:'<li>{{content}}</li>'
+    // })
+
+    //局部注册组件
+    var TodoItemComponent = {
+        props: ['content'],
+        template:'<li>{{content}}</li>'
+    }
+
+    var app = new Vue({
+        el: '#app',
+        components: {  //局部注册组件
+            TodoItem: TodoItemComponent
+        },
+        data: {
+            list: [],
+            inputVal: ''
+        },
+        methods: {
+            handleBtn: function(){
+                this.list.push(this.inputVal);
+                this.inputVal = ''
+            }
+        }
+    })
+</script>
+
+</html>

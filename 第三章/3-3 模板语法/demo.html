@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模板语法</title>
+</head>
+
+<body>
+    <div id="root" >
+        <!-- 插值表达式 -->
+        <div>{{name + 'shuai'}}</div>  
+
+        <!-- v-text指令与插值表达式一样，无法渲染标签 -->
+        <div v-text="name + 'shuai'"></div>
+
+        <!-- v-html指令可以渲染标签 -->
+        <div v-html="name + 'shuai'"></div>
+    </div>
+    
+    <!-- ps:注意v-指令后跟的都是js表达式 而非字符串 -->
+
+</body>
+<script src="../../lib/vue.js"></script>
+<script>
+
+    //
+    var vm = new Vue({
+        el: '#root',
+        data: {
+            name: '<h1>Jasminer</h1>'
+        }
+    })
+</script>
+
+</html>

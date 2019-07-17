@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>样式绑定</title>
+    <style>
+        .activated {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 通过class -->
+    <!-- 1.对象形式
+         2.数组形式 -->
+    <h1>1-对象class</h1>
+    <div id="vm1">
+        <div @click="handleClick1" :class="{activated: isActivated}">hello world1</div>
+    </div>
+
+    <h1>2-数组class</h1>
+    <div id="vm2">
+        <div @click="handleClick2" :class="[activated2,activated3]">hello world2</div>
+    </div>
+
+    <h1>3-对象style</h1>
+    <div id="vm3">
+        <div @click="handleClick3" :style="styleObj">hello world3</div>
+    </div>
+
+    <h1>4-数组style</h1>
+
+    <div id="vm4">
+        <div @click="handleClick4" :style="[styleObj,{fontSize:'30px'}]">hello world4</div>
+    </div>                                 <!-- 如果style后跟的是数组，则样式由数组中的 对象的属性和属性值 来决定 -->
+
+
+</body>
+<script src="../../lib/vue.js"></script>
+<script>
+    //1-通过对象形式的class绑定样式
+    var vm = new Vue({
+        el: '#vm1',
+        data: {
+            isActivated: false
+        },
+        methods: {
+            handleClick1: function () {
+                this.isActivated = !this.isActivated;
+            }
+        }
+
+    })
+
+    //2-通过数组形式的class绑定样式
+    var vm2 = new Vue({
+        el: '#vm2',
+        data: {
+            activated2: '',
+            activated3: 'activated3Class'
+        },
+        methods: {
+            handleClick2: function () {
+                this.activated2 = this.activated2 === 'activated' ? '' : 'activated'
+            }
+        }
+
+    })
+
+    //3-通过对象形式的style绑定样式
+    var vm3 = new Vue({
+        el: '#vm3',
+        data: {
+            styleObj: {
+                color: 'red'
+            }
+        },
+        methods: {
+            handleClick3: function () {
+                this.styleObj.color = this.styleObj.color === 'black' ? 'red' : 'black'
+            }
+        }
+
+    })
+
+
+    //4-通过数组形式的style绑定样式
+    var vm4 = new Vue({
+        el: '#vm4',
+        data: {
+            styleObj: {
+                color: 'red'
+            }
+        },
+        methods: {
+            handleClick4: function () {
+                this.styleObj.color = this.styleObj.color === 'black' ? 'red' : 'black'
+            }
+        }
+
+    })
+</script>
+
+</html>
