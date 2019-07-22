@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue组件细节点</title>
+</head>
+
+<body>
+    <div id="root" >
+        <table>
+            <tbody>
+                <tr is="row"></tr>
+                <tr is="row"></tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div id="root2">
+        <counter ref="one" @change="handleChange"></counter>
+        <counter ref="two" @change="handleChange"></counter>
+        <div>{{total}}</div>
+    </div>
+
+
+</body>
+<script src="../../lib/vue.js"></script>
+<script>
+    Vue.component('row', {
+        data: function(){
+            return {
+                content: 'this is content'
+            }
+        },
+        template: '<tr><td>{{content}}</td></tr>'
+    })
+
+    var vm = new Vue({
+        el: '#root'
+       
+    })
+
+    //注意点1： 当要遵循html5规范的时候，用is属性指向组件。因为h5规定<tbody>标签下只能是<tr>,则自定义组件row不能当做标签直接写在
+            // <tbody>下，而要写<tr>标签，再通过is属性指向自定义组件
+    //注意点2：组件中定义data必须用函数的形式在return的对象里写，不能直接在对象里写
+
+    
+    //计数器
+    Vue.component('counter', {
+        data: function(){
+            return {
+                number: 0
+            }
+        },
+        template: '<div @click="handleClick">{{number}}</div>',
+        methods: {
+            handleClick: function(){
+                this.number++;
+                this.$emit('change')
+            }
+        }
+
+    })
+
+    var vm2 = new Vue({
+        el: '#root2',
+        data: {
+            total: 0
+        },
+        methods: {
+            handleChange: function(){
+                console.log(this.$refs.one.number)
+                this.total = this.$refs.one.number + this.$refs.two.number
+            }
+        }
+       
+    })
+
+
+    //通过this.$refs获取到dom节点
+
+
+</script>
+
+</html>
